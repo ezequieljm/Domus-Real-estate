@@ -1,9 +1,12 @@
-import React from "react"
+import React from "react";
+import { Typography } from "@material-ui/core";
 
 export const NoAppoinments = () => {
     return (
         <div>
-            <h1>No hay citas</h1>
+            <Typography variant="h1" style={{ color: "grey" }}>
+                No hay citas
+            </Typography>
         </div>
-    )
-}
+    );
+};
