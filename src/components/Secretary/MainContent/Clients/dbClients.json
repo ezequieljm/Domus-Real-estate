@@ -1,0 +1,29 @@
+{
+  "cardText": [
+    {
+      "title": "Cliente Corporativo",
+      "parrf": "Es un cliente dueño de una empresa interezado en vender o alquilar propiedades.",
+      "btnOne": "Registrar",
+      "btnTwo": "Leer Más"
+    },
+    {
+      "title": "Cliente Particular",
+      "parrf": "Es un cliente interezado en comprar o alquilar una propiedad.",
+      "btnOne": "Registrar",
+      "btnTwo": "Leer Más"
+    }
+  ],
+  "registeredClient": [
+    {
+      "id": "298023",
+      "firstname": "Jill",
+      "surname": "Valentine",
+      "razonSocial": "Dependiente",
+      "cuitCuil": "33-234235235-1",
+      "cellPhone": "+54-787699834",
+      "email": "jillValentine@stars.com",
+      "address": "Raccoon City 9862",
+      "houseAgent": "Gordon Freeman"
+    }
+  ]
+}
