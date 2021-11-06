@@ -19,34 +19,59 @@ import { ModalDelete } from "../ModalDelete";
 import { RowAccordion } from "./RowAccordion";
 import { EditedActivity } from "./EditedActivity";
 import { ComponentEditAppointment } from "./ComponentEditAppoinment";
-import { useStyles } from "./styles.detailAccordion"
+import { useStyles } from "./styles.detailAccordion";
 
+const compose =
+    (...fns) =>
+    args =>
+        fns.reduceRight((arg, fn) => fn(arg), args);
 
+/**
+ * Main Component
+ */
 const DetailedAccordion = ({ arrayAppoinment }) => {
+    /**
+     * States
+     */
     const classes = useStyles();
     const [openEdit, setOpenEdit] = React.useState(0);
 
-    const getTableRow = (id) => {
-        const tr = document.getElementById(id.substr(49,11));
-        console.log(tr)
-    }
+    /**
+     * Pure Functions
+     */
+    const grepString = start => amount => str => str.substr(start, amount);
 
+    const getItemById = id => document.getElementById(id);
+
+    const getChieldsNodesFrom = item => item.childNodes;
+
+    const convertToArray = childNodes => Array.from(childNodes);
+
+    const mapper = fn => array => array.map(fn);
+
+    /**
+     * getTableRow compose function
+     */
+    const getTableRow = id =>
+        compose(
+            console.log,
+            mapper(item => item.innerHTML),
+            convertToArray,
+            getChieldsNodesFrom,
+            getItemById,
+            grepString(49)(11)
+        )(id);
+
+    /**
+     * Return
+     */
     return (
         <>
-            {arrayAppoinment.map((appoinment) => (
-                <Accordion key={appoinment.id}
-                    className={classes.root}
-                    onChange={(e) => setOpenEdit(0)}
-                >
-                    <AccordionSummary
-                        expandIcon={
-                            <ExpandMoreIcon style={{ color: "grey" }} />
-                        }
-                    >
+            {arrayAppoinment.map(appoinment => (
+                <Accordion key={appoinment.id} className={classes.root} onChange={e => setOpenEdit(0)}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon style={{ color: "grey" }} />}>
                         <div className={classes.column}>
-                            <Typography className={classes.heading}>
-                                {appoinment.title}
-                            </Typography>
+                            <Typography className={classes.heading}>{appoinment.title}</Typography>
                         </div>
                         <div className={classes.column}>
                             <Typography className={classes.secondaryHeading}>
@@ -54,31 +79,18 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                             </Typography>
                         </div>
                     </AccordionSummary>
-                    <AccordionDetails
-                        className={classes.details}
-                        style={{ background: "white" }}
-                    >
+                    <AccordionDetails className={classes.details} style={{ background: "white" }}>
                         <div style={{ width: "100%" }}>
                             <TableContainer>
                                 <Table>
                                     <TableHead>
                                         <TableRow>
                                             <TableCell />
-                                            <TableCell align="right">
-                                                Fecha
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                Hora
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                Agente
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                Propiedad
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                Estado
-                                            </TableCell>
+                                            <TableCell align="right">Fecha</TableCell>
+                                            <TableCell align="right">Hora</TableCell>
+                                            <TableCell align="right">Agente</TableCell>
+                                            <TableCell align="right">Propiedad</TableCell>
+                                            <TableCell align="right">Estado</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -90,11 +102,7 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            {openEdit === 1 && (
-                                <ComponentEditAppointment
-                                    setOptionApp={setOpenEdit}
-                                />
-                            )}
+                            {openEdit === 1 && <ComponentEditAppointment setOptionApp={setOpenEdit} />}
                             {openEdit === 2 && <EditedActivity />}
                         </div>
                     </AccordionDetails>
@@ -107,7 +115,10 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                         <Button
                             size="small"
                             color="primary"
-                            onClick={(e) => {setOpenEdit(1); getTableRow(e.currentTarget.className)}}
+                            onClick={e => {
+                                setOpenEdit(1);
+                                getTableRow(e.currentTarget.className);
+                            }}
                             className={`accordion-${appoinment.id}`}
                         >
                             Editar
@@ -118,6 +129,6 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
             ))}
         </>
     );
-}
+};
 
 export default DetailedAccordion;

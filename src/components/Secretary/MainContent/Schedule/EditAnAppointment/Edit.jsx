@@ -10,19 +10,24 @@ import { ThemeProvider } from "@material-ui/styles";
 import DetailedAccordion from "./ListAppointment/DetailAccordion/DetailAccordion";
 import { NoAppoinments } from "./ListAppointment/NoAppoinment";
 
+/**
+ * Main Component
+ */
 const EditAnAppointment = () => {
+    /**
+     * States
+     */
     const [getAppoinments, setGetAppoinments] = useState(2);
 
-    const [dateSelect, setDateSelect] = useState(
-        new Date().toLocaleDateString()
-    );
+    const [dateSelect, setDateSelect] = useState(new Date().toLocaleDateString());
 
     const [arrayAppoinment, setAppoinment] = useState([]);
 
+    /**
+     * Inner Functions
+     */
     const processRequest = (array, date) => {
-        const appoinments = array.filter(
-            appo => appo.description.fecha === date
-        );
+        const appoinments = array.filter(appo => appo.description.fecha === date);
         setTimeout(() => {
             if (appoinments.length === 0) {
                 setGetAppoinments(2);
@@ -42,6 +47,9 @@ const EditAnAppointment = () => {
             .catch(setGetAppoinments(0));
     }, [dateSelect]);
 
+    /**
+     * Return component
+     */
     return (
         <>
             <Grow in>
@@ -56,22 +64,13 @@ const EditAnAppointment = () => {
                         }}
                     >
                         <div style={{ minWidth: "20%", padding: "1rem" }}>
-                            <Typography
-                                variant="h4"
-                                color="primary"
-                                style={{ marginBottom: "1rem" }}
-                            >
+                            <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
                                 Calendario
                             </Typography>
                             <div>
                                 <ThemeProvider theme={materialTheme}>
-                                    <MuiPickersUtilsProvider
-                                        utils={DateFnsUtils}
-                                        locale={esLocale}
-                                    >
-                                        <VerticalCalendar
-                                            setDate={setDateSelect}
-                                        />
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+                                        <VerticalCalendar setDate={setDateSelect} />
                                     </MuiPickersUtilsProvider>
                                 </ThemeProvider>
                             </div>
@@ -83,26 +82,16 @@ const EditAnAppointment = () => {
                                 width: "1250px",
                             }}
                         >
-                            <Typography
-                                variant="h4"
-                                color="primary"
-                                style={{ marginBottom: "1rem" }}
-                            >
+                            <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
                                 Citas del dia
-                                {` ${new Date(
-                                    dateSelect
-                                ).toLocaleDateString()}`}
+                                {` ${new Date(dateSelect).toLocaleDateString()}`}
                             </Typography>
                             {getAppoinments === 1 && (
                                 <div>
-                                    <DetailedAccordion
-                                        arrayAppoinment={arrayAppoinment}
-                                    />
+                                    <DetailedAccordion arrayAppoinment={arrayAppoinment} />
                                 </div>
                             )}
-                            {getAppoinments === 0 && (
-                                <CircularProgress size="5rem" />
-                            )}
+                            {getAppoinments === 0 && <CircularProgress size="5rem" />}
                             {getAppoinments === 2 && <NoAppoinments />}
                         </div>
                     </div>
