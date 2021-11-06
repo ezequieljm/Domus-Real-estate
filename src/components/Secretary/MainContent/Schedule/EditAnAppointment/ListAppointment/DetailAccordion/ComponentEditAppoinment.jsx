@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 import { Grow, TextField, Button } from "@material-ui/core";
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from "@material-ui/pickers";
@@ -6,13 +6,18 @@ import esLocale from "date-fns/locale/es";
 import DateFnsUtils from "@date-io/date-fns";
 
 export const ComponentEditAppointment = ({ setOptionApp }) => {
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const dataAppoinmentEdit = { date: "", hour: "", agent: "Ned Bigby", propertie: "6853" };
+    const [newData, setNewData] = useState(dataAppoinmentEdit);
 
-    const handleSelectedDate = date => setSelectedDate(date);
+    const handleSelectedDate = date => {
+        const [dateOf, hourOf] = date.toLocaleString().split(",");
+        setNewData({ ...newData, date: dateOf, hour: hourOf });
+    };
 
-    useEffect(() => {
-        console.log(selectedDate.toLocaleString());
-    }, [selectedDate]);
+    const handleButtonConfirm = () => {
+        setOptionApp(2);
+        console.log(newData);
+    };
 
     return (
         <Grow in>
@@ -26,7 +31,7 @@ export const ComponentEditAppointment = ({ setOptionApp }) => {
             >
                 <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
                     <KeyboardDateTimePicker
-                        value={selectedDate}
+                        value={new Date()}
                         onChange={handleSelectedDate}
                         label="Fecha y Hora"
                         format="dd/MM/yyyy hh:mm a"
@@ -38,7 +43,9 @@ export const ComponentEditAppointment = ({ setOptionApp }) => {
                     label="Agente"
                     SelectProps={{ native: true }}
                     helperText="Selecciona un agente inmobiliario"
-                    onChange={() => console.log("agent changed")}
+                    onChange={e =>
+                        setNewData({ ...newData, agent: e.currentTarget.selectedOptions[0].innerHTML })
+                    }
                 >
                     {["Ned Bigby", "Gordon Freeman", "Feynman"].map(agent => (
                         <option key={agent} value={agent}>
@@ -50,9 +57,9 @@ export const ComponentEditAppointment = ({ setOptionApp }) => {
                     label="Propiedad"
                     helperText="Ingrese el código de la propiedad"
                     defaultValue="6853"
-                    onChange={() => console.log("estate changed")}
+                    onChange={e => setNewData({ ...newData, propertie: e.currentTarget.value })}
                 ></TextField>
-                <Button size="small" variant="contained" onClick={() => setOptionApp(2)}>
+                <Button size="small" variant="contained" onClick={handleButtonConfirm}>
                     Confirmar
                 </Button>
             </div>

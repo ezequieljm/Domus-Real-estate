@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Accordion, AccordionSummary, AccordionActions, AccordionDetails } from "@material-ui/core";
 import { Table, TableContainer, TableHead, TableBody, TableCell, TableRow } from "@material-ui/core";
@@ -33,6 +33,8 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
 
     const mapper = fn => array => array.map(fn);
 
+    const addIdForPOST = id => array => [...array, grepString(49)(11)(id).split("-")[1]];
+
     const compose =
         (...fns) =>
         args =>
@@ -40,12 +42,20 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
 
     const getTableRow = id =>
         compose(
+            console.log,
+            addIdForPOST(id),
             mapper(item => item.innerHTML),
             convertToArray,
             getChieldsNodesFrom,
             getItemById,
             grepString(49)(11)
         )(id);
+
+    useEffect(() => {
+        if (openEdit === 2) {
+            console.log(`Request Fetch`);
+        }
+    }, [openEdit]);
 
     /**
      * Return
