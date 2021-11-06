@@ -1,30 +1,14 @@
 import React from "react";
-import {
-    Accordion,
-    AccordionSummary,
-    AccordionActions,
-    AccordionDetails,
-    Typography,
-    Button,
-    Table,
-    TableContainer,
-    TableHead,
-    TableBody,
-    TableCell,
-    TableRow,
-} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { Accordion, AccordionSummary, AccordionActions, AccordionDetails } from "@material-ui/core";
+import { Table, TableContainer, TableHead, TableBody, TableCell, TableRow } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import { ModalDelete } from "../ModalDelete";
 
 import { RowAccordion } from "./RowAccordion";
 import { EditedActivity } from "./EditedActivity";
 import { ComponentEditAppointment } from "./ComponentEditAppoinment";
 import { useStyles } from "./styles.detailAccordion";
-
-const compose =
-    (...fns) =>
-    args =>
-        fns.reduceRight((arg, fn) => fn(arg), args);
 
 /**
  * Main Component
@@ -49,12 +33,13 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
 
     const mapper = fn => array => array.map(fn);
 
-    /**
-     * getTableRow compose function
-     */
+    const compose =
+        (...fns) =>
+        args =>
+            fns.reduceRight((arg, fn) => fn(arg), args);
+
     const getTableRow = id =>
         compose(
-            console.log,
             mapper(item => item.innerHTML),
             convertToArray,
             getChieldsNodesFrom,

@@ -15,8 +15,8 @@ export const EditedActivity = () => {
                     marginTop: "1rem",
                 }}
             >
-                <CheckCircleOutlineIcon style={{ color: "green" }} />
-                <Typography variant="p">Actividad editada</Typography>
+                <CheckCircleOutlineIcon style={{ color: "green", fontSize: "4rem" }} />
+                <Typography variant="h5">Actividad editada correctamente</Typography>
             </div>
         </Grow>
     );
