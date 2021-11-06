@@ -92,7 +92,7 @@ export const VerticalCalendar = ({ setDate }) => {
 
     const disableWeekends = (date) => {
         const dateInterditesRaw = [
-            new Date("2021-11-6"),
+            new Date("2021-11-8"),
             new Date("2021-11-20"),
             new Date("2021-11-25"),
             new Date("2021-11-10"),
@@ -118,9 +118,9 @@ export const VerticalCalendar = ({ setDate }) => {
                 orientation="landscape"
                 variant="static"
                 openTo="date"
-                value={selectedDate}
                 onChange={handleDateChange}
                 shouldDisableDate={disableWeekends}
+                value={selectedDate}
             />
         </div>
     );

@@ -12,30 +12,39 @@ import { NoAppoinments } from "./ListAppointment/NoAppoinment";
 
 const EditAnAppointment = () => {
     const [getAppoinments, setGetAppoinments] = useState(0);
+
     const [dateSelect, setDateSelect] = useState(
         new Date().toLocaleDateString()
     );
+
     const [arrayAppoinment, setAppoinment] = useState([]);
+
+    const processRequest = (array, date) => {
+        const appoinments = array.filter(
+            appo => appo.description.fecha === date
+        );
+        if (appoinments.length === 0) {
+            setGetAppoinments(0);
+        } else {
+            setAppoinment(appoinments);
+            setGetAppoinments(1);
+        }
+    };
 
     useEffect(() => {
         fetch("http://localhost:4000/appoinments", { method: "GET" })
-            .then((data) => data.json())
-            .then((array) => {
-                setAppoinment(array)
-                setGetAppoinments(1)
+            .then(data => data.json())
+            .then(array => {
+                processRequest(array, dateSelect);
             })
             .catch(setGetAppoinments(0));
-    }, []);
-
-    useEffect(() => {
-        console.log(dateSelect)
-    }, [dateSelect])
+    }, [dateSelect]);
 
     return (
         <>
             <Grow in>
                 <Paper elevation={5} style={{ padding: "1rem" }}>
-                    <Typography variant="h4" style={{ marginBottom: "1rem" }}>
+                    <Typography variant="h2" style={{ marginBottom: "1rem" }}>
                         Agenda
                     </Typography>
                     <div
@@ -46,7 +55,7 @@ const EditAnAppointment = () => {
                     >
                         <div style={{ minWidth: "20%", padding: "1rem" }}>
                             <Typography
-                                variant="h5"
+                                variant="h4"
                                 color="primary"
                                 style={{ marginBottom: "1rem" }}
                             >
@@ -65,16 +74,32 @@ const EditAnAppointment = () => {
                                 </ThemeProvider>
                             </div>
                         </div>
-                        {getAppoinments === 1 && (
-                            <div
-                                style={{ overflow: "auto", marginTop: "70px" }}
+                        <div
+                            style={{
+                                overflow: "auto",
+                                padding: "1rem",
+                                width: "1250px",
+                            }}
+                        >
+                            <Typography
+                                variant="h4"
+                                color="primary"
+                                style={{ marginBottom: "1rem" }}
                             >
-                                <DetailedAccordion
-                                    arrayAppoinment={arrayAppoinment}
-                                />
-                            </div>
-                        )}
-                        {getAppoinments === 0 && <NoAppoinments />}
+                                Citas del dia
+                                {` ${new Date(
+                                    dateSelect
+                                ).toLocaleDateString()}`}
+                            </Typography>
+                            {getAppoinments === 1 && (
+                                <div>
+                                    <DetailedAccordion
+                                        arrayAppoinment={arrayAppoinment}
+                                    />
+                                </div>
+                            )}
+                            {getAppoinments === 0 && <NoAppoinments />}
+                        </div>
                     </div>
                 </Paper>
             </Grow>
