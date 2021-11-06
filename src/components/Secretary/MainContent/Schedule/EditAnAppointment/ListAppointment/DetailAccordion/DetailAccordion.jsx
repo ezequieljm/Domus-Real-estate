@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Accordion, AccordionSummary, AccordionActions, AccordionDetails } from "@material-ui/core";
 import { Table, TableContainer, TableHead, TableBody, TableCell, TableRow } from "@material-ui/core";
@@ -18,7 +18,9 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
      * States
      */
     const classes = useStyles();
-    const [openEdit, setOpenEdit] = React.useState(0);
+    const [openEdit, setOpenEdit] = useState(0);
+    const [appoinmentEdited, setAppEd] = useState();
+    const [dataArrayAppoinment, setArrayApp] = useState([]);
 
     /**
      * Pure Functions
@@ -42,7 +44,7 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
 
     const getTableRow = id =>
         compose(
-            console.log,
+            setArrayApp,
             addIdForPOST(id),
             mapper(item => item.innerHTML),
             convertToArray,
@@ -53,9 +55,10 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
 
     useEffect(() => {
         if (openEdit === 2) {
-            console.log(`Request Fetch`);
+            console.log(arrayAppoinment.filter(obj => obj.id === Number(dataArrayAppoinment[6]))[0]);
+            console.log(appoinmentEdited)
         }
-    }, [openEdit]);
+    }, [openEdit, appoinmentEdited]);
 
     /**
      * Return
@@ -63,7 +66,12 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
     return (
         <>
             {arrayAppoinment.map(appoinment => (
-                <Accordion key={appoinment.id} className={classes.root} onChange={e => setOpenEdit(0)}>
+                <Accordion
+                    id={`${appoinment.id}`}
+                    key={appoinment.id}
+                    className={classes.root}
+                    onChange={e => setOpenEdit(0)}
+                >
                     <AccordionSummary expandIcon={<ExpandMoreIcon style={{ color: "grey" }} />}>
                         <div className={classes.column}>
                             <Typography className={classes.heading}>{appoinment.title}</Typography>
@@ -97,7 +105,12 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            {openEdit === 1 && <ComponentEditAppointment setOptionApp={setOpenEdit} />}
+                            {openEdit === 1 && (
+                                <ComponentEditAppointment
+                                    setOptionApp={setOpenEdit}
+                                    setAppoinmentEdited={setAppEd}
+                                />
+                            )}
                             {openEdit === 2 && <EditedActivity />}
                         </div>
                     </AccordionDetails>
