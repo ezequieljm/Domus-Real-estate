@@ -26,6 +26,11 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
     const classes = useStyles();
     const [openEdit, setOpenEdit] = React.useState(0);
 
+    const getTableRow = (id) => {
+        const tr = document.getElementById(id.substr(49,11));
+        console.log(tr)
+    }
+
     return (
         <>
             {arrayAppoinment.map((appoinment) => (
@@ -80,6 +85,7 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                                         <RowAccordion
                                             key={appoinment.title}
                                             row={appoinment}
+                                            ident={`accordion-${appoinment.id}`}
                                         />
                                     </TableBody>
                                 </Table>
@@ -101,7 +107,8 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                         <Button
                             size="small"
                             color="primary"
-                            onClick={() => setOpenEdit(1)}
+                            onClick={(e) => {setOpenEdit(1); getTableRow(e.currentTarget.className)}}
+                            className={`accordion-${appoinment.id}`}
                         >
                             Editar
                         </Button>

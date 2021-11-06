@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grow, Paper } from "@material-ui/core";
+import { Typography, Grow, Paper, CircularProgress } from "@material-ui/core";
 
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import esLocale from "date-fns/locale/es";
@@ -11,7 +11,7 @@ import DetailedAccordion from "./ListAppointment/DetailAccordion/DetailAccordion
 import { NoAppoinments } from "./ListAppointment/NoAppoinment";
 
 const EditAnAppointment = () => {
-    const [getAppoinments, setGetAppoinments] = useState(0);
+    const [getAppoinments, setGetAppoinments] = useState(2);
 
     const [dateSelect, setDateSelect] = useState(
         new Date().toLocaleDateString()
@@ -23,12 +23,14 @@ const EditAnAppointment = () => {
         const appoinments = array.filter(
             appo => appo.description.fecha === date
         );
-        if (appoinments.length === 0) {
-            setGetAppoinments(0);
-        } else {
-            setAppoinment(appoinments);
-            setGetAppoinments(1);
-        }
+        setTimeout(() => {
+            if (appoinments.length === 0) {
+                setGetAppoinments(2);
+            } else {
+                setAppoinment(appoinments);
+                setGetAppoinments(1);
+            }
+        }, 2000);
     };
 
     useEffect(() => {
@@ -98,7 +100,10 @@ const EditAnAppointment = () => {
                                     />
                                 </div>
                             )}
-                            {getAppoinments === 0 && <NoAppoinments />}
+                            {getAppoinments === 0 && (
+                                <CircularProgress size="5rem" />
+                            )}
+                            {getAppoinments === 2 && <NoAppoinments />}
                         </div>
                     </div>
                 </Paper>
@@ -106,5 +111,4 @@ const EditAnAppointment = () => {
         </>
     );
 };
-
 export default EditAnAppointment;

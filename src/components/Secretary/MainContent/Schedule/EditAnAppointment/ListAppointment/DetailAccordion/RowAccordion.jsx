@@ -1,7 +1,7 @@
 import React from "react";
 import { TableRow, TableCell } from "@material-ui/core";
 
-export const RowAccordion = ({ row }) => {
+export const RowAccordion = ({ row, ident }) => {
     const selectColor = (color) => {
         return color === "En Proceso"
             ? "blue"
@@ -11,7 +11,7 @@ export const RowAccordion = ({ row }) => {
     };
 
     return (
-        <TableRow>
+        <TableRow id={ident}>
             <TableCell />
             <TableCell align="right">{row.description.fecha}</TableCell>
             <TableCell align="right">{row.description.hora}</TableCell>
