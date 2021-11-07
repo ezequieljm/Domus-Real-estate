@@ -22,6 +22,22 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
     const [appoinmentEdited, setAppEd] = useState();
     const [dataArrayAppoinment, setArrayApp] = useState([]);
 
+/*     function process(str) {
+        const id = str.substr(49,11);
+        const $tableRow = document.getElementById(id);
+        const childNodes = $tableRow.childNodes;
+
+        let arrayOfData = []
+
+        for (item of $tableRow) {
+            arrayOfData.push(item.innerHTML)
+        }
+
+        arrayOfData.push(id)
+        return arrayOfData;
+
+    } */
+
     /**
      * Pure Functions
      */
@@ -55,8 +71,25 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
 
     useEffect(() => {
         if (openEdit === 2) {
-            console.log(arrayAppoinment.filter(obj => obj.id === Number(dataArrayAppoinment[6]))[0]);
-            console.log(appoinmentEdited)
+            const idTr = Number(dataArrayAppoinment[6]);
+            const getAppoinmentById = (arr, id) => arr.reduce((acc, curr) => (curr.id === id ? { ...curr } : acc), {});
+            let app = getAppoinmentById(arrayAppoinment,idTr);
+            
+            app.description.agente = appoinmentEdited.agent
+            app.description.fecha = appoinmentEdited.date
+            app.description.hora = appoinmentEdited.hour
+            app.description.propiedad = appoinmentEdited.propertie
+            
+            fetch(`http://localhost:4000/appoinments/${app.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(app)
+            })
+            .then(response => response.json())
+            .then(console.log)
+            .catch(console.log)
         }
     }, [openEdit, appoinmentEdited]);
 

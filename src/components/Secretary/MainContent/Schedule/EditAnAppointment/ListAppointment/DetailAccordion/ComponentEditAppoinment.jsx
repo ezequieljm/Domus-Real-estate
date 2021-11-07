@@ -8,16 +8,18 @@ import DateFnsUtils from "@date-io/date-fns";
 export const ComponentEditAppointment = ({ setOptionApp, setAppoinmentEdited }) => {
     const dataAppoinmentEdit = { date: "", hour: "", agent: "Ned Bigby", propertie: "6853" };
     const [newData, setNewData] = useState(dataAppoinmentEdit);
+    const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
 
     const handleSelectedDate = date => {
         const [dateOf, hourOf] = date.toLocaleString().split(",");
         setNewData({ ...newData, date: dateOf, hour: hourOf });
+        setCurrentDate(date.toLocaleDateString());
     };
 
     const handleButtonConfirm = () => {
         setOptionApp(2);
-        setAppoinmentEdited(newData)
-    }
+        setAppoinmentEdited(newData);
+    };
 
     return (
         <Grow in>
@@ -31,7 +33,7 @@ export const ComponentEditAppointment = ({ setOptionApp, setAppoinmentEdited }) 
             >
                 <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
                     <KeyboardDateTimePicker
-                        value={new Date()}
+                        defaultValue={currentDate}
                         onChange={handleSelectedDate}
                         label="Fecha y Hora"
                         format="dd/MM/yyyy hh:mm a"
