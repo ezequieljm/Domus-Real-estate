@@ -62,7 +62,7 @@ const DetailedAccordion = ({ arrayAppoinment }) =>
         }
     }
 
-    useEffect(() => requestPut(Number(dataArrayAppoinment[6]), arrayAppoinment), 
+    useEffect(() => requestPut(Number(dataArrayAppoinment[6]), arrayAppoinment),
         [openEdit, appoinmentEdited,]
     );
 

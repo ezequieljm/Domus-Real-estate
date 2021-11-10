@@ -15,7 +15,7 @@ import { NoAppoinments } from "./ListAppointment/NoAppoinment";
  */
 const EditAnAppointment = () =>
 {
-    const [getAppoinments, setGetAppoinments] = useState(2);
+    const [getAppoinments, setGetAppoinments] = useState(0);
 
     const [dateSelect, setDateSelect] = useState(new Date().toLocaleDateString());
 
@@ -24,6 +24,7 @@ const EditAnAppointment = () =>
     const processRequest = (appoinments, date) =>
     {
         const appoinmentsByDate = appoinments.filter(appoinment => appoinment.date === date);
+        setGetAppoinments(0);
         setTimeout(() =>
         {
             if (appoinmentsByDate.length === 0)
