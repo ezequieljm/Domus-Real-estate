@@ -1,27 +1,26 @@
 import React from "react";
 import { TableRow, TableCell } from "@material-ui/core";
 
-export const RowAccordion = ({ row, ident }) => {
-    const selectColor = (color) => {
-        return color === "En Proceso"
+export const RowAccordion = ({ row, ident }) =>
+{
+    const selectColor = color =>
+        color === "En Proceso"
             ? "blue"
             : color === "Finalizada"
-            ? "green"
-            : "red";
-    };
-
+                ? "green"
+                : "red";
     return (
         <TableRow id={ident}>
             <TableCell />
-            <TableCell align="right">{row.description.fecha}</TableCell>
-            <TableCell align="right">{row.description.hora}</TableCell>
-            <TableCell align="right">{row.description.agente}</TableCell>
-            <TableCell align="right">{row.description.propiedad}</TableCell>
+            <TableCell align="right">{row.date}</TableCell>
+            <TableCell align="right">{row.hour}</TableCell>
+            <TableCell align="right">{row.agent}</TableCell>
+            <TableCell align="right">{row.propertie}</TableCell>
             <TableCell
                 align="right"
-                style={{ color: selectColor(row.description.estado) }}
+                style={{ color: selectColor(row.state) }}
             >
-                {row.description.estado}
+                {row.state}
             </TableCell>
         </TableRow>
     );

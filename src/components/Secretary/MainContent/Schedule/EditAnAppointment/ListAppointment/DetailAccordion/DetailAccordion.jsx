@@ -13,89 +13,59 @@ import { useStyles } from "./styles.detailAccordion";
 /**
  * Main Component
  */
-const DetailedAccordion = ({ arrayAppoinment }) => {
-    /**
-     * States
-     */
+const DetailedAccordion = ({ arrayAppoinment }) =>
+{
     const classes = useStyles();
+
     const [openEdit, setOpenEdit] = useState(0);
+
     const [appoinmentEdited, setAppEd] = useState();
+
     const [dataArrayAppoinment, setArrayApp] = useState([]);
 
-/*     function process(str) {
-        const id = str.substr(49,11);
-        const $tableRow = document.getElementById(id);
-        const childNodes = $tableRow.childNodes;
+    const getTableRow = (str) => 
+    {
+        const id = str.substr(49, 11);
+        const childNodes = document.getElementById(id).childNodes;
 
         let arrayOfData = []
 
-        for (item of $tableRow) {
-            arrayOfData.push(item.innerHTML)
+        for (let children of childNodes)
+        {
+            arrayOfData.push(children.innerHTML);
         }
 
-        arrayOfData.push(id)
-        return arrayOfData;
+        arrayOfData.push(id.split('-')[1]);
+        setArrayApp(arrayOfData);
+    }
 
-    } */
-
-    /**
-     * Pure Functions
-     */
-    const grepString = start => amount => str => str.substr(start, amount);
-
-    const getItemById = id => document.getElementById(id);
-
-    const getChieldsNodesFrom = item => item.childNodes;
-
-    const convertToArray = childNodes => Array.from(childNodes);
-
-    const mapper = fn => array => array.map(fn);
-
-    const addIdForPOST = id => array => [...array, grepString(49)(11)(id).split("-")[1]];
-
-    const compose =
-        (...fns) =>
-        args =>
-            fns.reduceRight((arg, fn) => fn(arg), args);
-
-    const getTableRow = id =>
-        compose(
-            setArrayApp,
-            addIdForPOST(id),
-            mapper(item => item.innerHTML),
-            convertToArray,
-            getChieldsNodesFrom,
-            getItemById,
-            grepString(49)(11)
-        )(id);
-
-    useEffect(() => {
-        if (openEdit === 2) {
-            const idTr = Number(dataArrayAppoinment[6]);
+    const requestPut = (id, arrayAppoinment) =>
+    {
+        if (openEdit === 2)
+        {
             const getAppoinmentById = (arr, id) => arr.reduce((acc, curr) => (curr.id === id ? { ...curr } : acc), {});
-            let app = getAppoinmentById(arrayAppoinment,idTr);
-            
-            app.description.agente = appoinmentEdited.agent
-            app.description.fecha = appoinmentEdited.date
-            app.description.hora = appoinmentEdited.hour
-            app.description.propiedad = appoinmentEdited.propertie
-            
-            fetch(`http://localhost:4000/appoinments/${app.id}`, {
+            const appoinment = getAppoinmentById(arrayAppoinment, id);
+
+            appoinment.agent = appoinmentEdited.agent
+            appoinment.date = appoinmentEdited.date
+            appoinment.hour = appoinmentEdited.hour
+            appoinment.propertie = appoinmentEdited.propertie
+
+            fetch(`http://localhost:4000/appoinments/${appoinment.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body:JSON.stringify(app)
+                body: JSON.stringify(appoinment)
             })
-            .then(response => response.json())
-            .then(console.log)
-            .catch(console.log)
+                .catch(console.log)
         }
-    }, [openEdit, appoinmentEdited]);
+    }
 
-    /**
-     * Return
-     */
+    useEffect(() => requestPut(Number(dataArrayAppoinment[6]), arrayAppoinment), 
+        [openEdit, appoinmentEdited,]
+    );
+
     return (
         <>
             {arrayAppoinment.map(appoinment => (
@@ -111,7 +81,7 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                         </div>
                         <div className={classes.column}>
                             <Typography className={classes.secondaryHeading}>
-                                {appoinment.description.desBrev}
+                                {appoinment.shortDescription}
                             </Typography>
                         </div>
                     </AccordionSummary>
@@ -148,7 +118,7 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                         </div>
                     </AccordionDetails>
                     <AccordionActions style={{ background: "white" }}>
-                        {appoinment.description.estado === "Cancelada" && (
+                        {appoinment.state === "Cancelada" && (
                             <Button style={{ color: "green" }} size="small">
                                 Restablecer
                             </Button>
@@ -156,7 +126,8 @@ const DetailedAccordion = ({ arrayAppoinment }) => {
                         <Button
                             size="small"
                             color="primary"
-                            onClick={e => {
+                            onClick={e =>
+                            {
                                 setOpenEdit(1);
                                 getTableRow(e.currentTarget.className);
                             }}

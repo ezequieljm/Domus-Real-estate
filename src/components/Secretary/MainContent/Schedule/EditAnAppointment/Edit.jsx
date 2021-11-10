@@ -13,91 +13,91 @@ import { NoAppoinments } from "./ListAppointment/NoAppoinment";
 /**
  * Main Component
  */
-const EditAnAppointment = () => {
-    /**
-     * States
-     */
+const EditAnAppointment = () =>
+{
     const [getAppoinments, setGetAppoinments] = useState(2);
 
     const [dateSelect, setDateSelect] = useState(new Date().toLocaleDateString());
 
     const [arrayAppoinment, setAppoinment] = useState([]);
 
-    /**
-     * Inner Functions
-     */
-    const processRequest = (array, date) => {
-        const appoinments = array.filter(appo => appo.description.fecha === date);
-        setTimeout(() => {
-            if (appoinments.length === 0) {
+    const processRequest = (appoinments, date) =>
+    {
+        const appoinmentsByDate = appoinments.filter(appoinment => appoinment.date === date);
+        setTimeout(() =>
+        {
+            if (appoinmentsByDate.length === 0)
+            {
                 setGetAppoinments(2);
-            } else {
-                setAppoinment(appoinments);
+            } else
+            {
+                setAppoinment(appoinmentsByDate);
                 setGetAppoinments(1);
             }
         }, 2000);
     };
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         fetch("http://localhost:4000/appoinments", { method: "GET" })
             .then(data => data.json())
-            .then(array => {
-                processRequest(array, dateSelect);
-            })
-            .catch(setGetAppoinments(0));
+            .then(appoinment => processRequest(appoinment, dateSelect))
+            .catch(error =>
+            {
+                setGetAppoinments(0);
+                setTimeout(() =>
+                {
+                    setGetAppoinments(2);
+                }, 2000);
+            });
     }, [dateSelect]);
 
-    /**
-     * Return component
-     */
     return (
-        <>
-            <Grow in>
-                <Paper elevation={5} style={{ padding: "1rem" }}>
-                    <Typography variant="h2" style={{ marginBottom: "1rem" }}>
-                        Agenda
-                    </Typography>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <div style={{ minWidth: "20%", padding: "1rem" }}>
-                            <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
-                                Calendario
-                            </Typography>
-                            <div>
-                                <ThemeProvider theme={materialTheme}>
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
-                                        <VerticalCalendar setDate={setDateSelect} />
-                                    </MuiPickersUtilsProvider>
-                                </ThemeProvider>
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                overflow: "auto",
-                                padding: "1rem",
-                                width: "1250px",
-                            }}
-                        >
-                            <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
-                                Citas del dia
-                                {` ${new Date(dateSelect).toLocaleDateString()}`}
-                            </Typography>
-                            {getAppoinments === 1 && (
-                                <div>
-                                    <DetailedAccordion arrayAppoinment={arrayAppoinment} />
-                                </div>
-                            )}
-                            {getAppoinments === 0 && <CircularProgress size="5rem" />}
-                            {getAppoinments === 2 && <NoAppoinments />}
+        <Grow in>
+            <Paper elevation={5} style={{ padding: "1rem" }}>
+                <Typography variant="h2" style={{ marginBottom: "1rem" }}>
+                    Agenda
+                </Typography>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <div style={{ minWidth: "20%", padding: "1rem" }}>
+                        <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
+                            Calendario
+                        </Typography>
+                        <div>
+                            <ThemeProvider theme={materialTheme}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+                                    <VerticalCalendar setDate={setDateSelect} />
+                                </MuiPickersUtilsProvider>
+                            </ThemeProvider>
                         </div>
                     </div>
-                </Paper>
-            </Grow>
-        </>
+                    <div
+                        style={{
+                            overflow: "auto",
+                            padding: "1rem",
+                            width: "1250px",
+                        }}
+                    >
+                        <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
+                            Citas del dia
+                            {` ${new Date(dateSelect).toLocaleDateString()}`}
+                        </Typography>
+                        {getAppoinments === 1 && (
+                            <div>
+                                <DetailedAccordion arrayAppoinment={arrayAppoinment} />
+                            </div>
+                        )}
+                        {getAppoinments === 0 && <CircularProgress size="5rem" />}
+                        {getAppoinments === 2 && <NoAppoinments />}
+                    </div>
+                </div>
+            </Paper>
+        </Grow>
     );
 };
 export default EditAnAppointment;
