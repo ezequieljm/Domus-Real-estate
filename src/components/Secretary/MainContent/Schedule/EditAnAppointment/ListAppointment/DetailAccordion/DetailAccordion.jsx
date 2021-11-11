@@ -10,9 +10,6 @@ import { EditedActivity } from "./EditedActivity";
 import { ComponentEditAppointment } from "./ComponentEditAppointment";
 import { useStyles } from "./styles.detailAccordion";
 
-/**
- * Main Component
- */
 const DetailedAccordion = ({ arrayAppointment }) =>
 {
     const classes = useStyles();
@@ -43,15 +40,15 @@ const DetailedAccordion = ({ arrayAppointment }) =>
     {
         if (openEdit === 2)
         {
-            const getAppoinmentById = (arr, id) => arr.reduce((acc, curr) => (curr.id === id ? { ...curr } : acc), {});
-            const appointment = getAppoinmentById(arrayAppointment, id);
+            const getAppointmentById = (arr, id) => arr.reduce((acc, curr) => (curr.id === id ? { ...curr } : acc), {});
+            const appointment = getAppointmentById(arrayAppointment, id);
 
             appointment.agent = appointmentEdited.agent
             appointment.date = appointmentEdited.date
             appointment.hour = appointmentEdited.hour
             appointment.propertie = appointmentEdited.propertie
 
-            fetch(`http://localhost:4000/appoinments/${appointment.id}`, {
+            fetch(`http://localhost:4000/appointments/${appointment.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +108,7 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                             {openEdit === 1 && (
                                 <ComponentEditAppointment
                                     setOptionApp={setOpenEdit}
-                                    setAppoinmentEdited={setAppEd}
+                                    setAppointmentEdited={setAppEd}
                                 />
                             )}
                             {openEdit === 2 && <EditedActivity />}
