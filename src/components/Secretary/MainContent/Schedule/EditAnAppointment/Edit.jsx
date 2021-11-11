@@ -8,47 +8,44 @@ import { materialTheme, VerticalCalendar } from "../DatePicker/DatePicker";
 import { ThemeProvider } from "@material-ui/styles";
 
 import DetailedAccordion from "./ListAppointment/DetailAccordion/DetailAccordion";
-import { NoAppoinments } from "./ListAppointment/NoAppoinment";
+import { NoAppointments } from "./ListAppointment/NoAppointment";
 
-/**
- * Main Component
- */
 const EditAnAppointment = () =>
 {
-    const [getAppoinments, setGetAppoinments] = useState(0);
+    const [getAppointments, setGetAppointments] = useState(0);
 
     const [dateSelect, setDateSelect] = useState(new Date().toLocaleDateString());
 
-    const [arrayAppoinment, setAppoinment] = useState([]);
+    const [arrayAppointment, setAppointment] = useState([]);
 
-    const processRequest = (appoinments, date) =>
+    const processRequest = (appointments, date) =>
     {
-        const appoinmentsByDate = appoinments.filter(appoinment => appoinment.date === date);
-        setGetAppoinments(0);
+        const appointmentsByDate = appointments.filter(appointment => appointment.date === date);
+        setGetAppointments(0);
         setTimeout(() =>
         {
-            if (appoinmentsByDate.length === 0)
+            if (appointmentsByDate.length === 0)
             {
-                setGetAppoinments(2);
+                setGetAppointments(2);
             } else
             {
-                setAppoinment(appoinmentsByDate);
-                setGetAppoinments(1);
+                setAppointment(appointmentsByDate);
+                setGetAppointments(1);
             }
         }, 2000);
     };
 
     useEffect(() =>
     {
-        fetch("http://localhost:4000/appoinments", { method: "GET" })
+        fetch("http://localhost:4000/appointments", { method: "GET" })
             .then(data => data.json())
-            .then(appoinment => processRequest(appoinment, dateSelect))
+            .then(appointment => processRequest(appointment, dateSelect))
             .catch(error =>
             {
-                setGetAppoinments(0);
+                setGetAppointments(0);
                 setTimeout(() =>
                 {
-                    setGetAppoinments(2);
+                    setGetAppointments(2);
                 }, 2000);
             });
     }, [dateSelect]);
@@ -88,13 +85,19 @@ const EditAnAppointment = () =>
                             Citas del dia
                             {` ${new Date(dateSelect).toLocaleDateString()}`}
                         </Typography>
-                        {getAppoinments === 1 && (
+                        {
+                            getAppointments === 1 &&
                             <div>
-                                <DetailedAccordion arrayAppoinment={arrayAppoinment} />
+                                <DetailedAccordion arrayAppointment={arrayAppointment} />
                             </div>
-                        )}
-                        {getAppoinments === 0 && <CircularProgress size="5rem" />}
-                        {getAppoinments === 2 && <NoAppoinments />}
+                        }
+                        {
+                            getAppointments === 0 &&
+                            <div style={{ textAlign: "center" }}>
+                                <CircularProgress size="5rem" />
+                            </div>
+                        }
+                        {getAppointments === 2 && <NoAppointments />}
                     </div>
                 </div>
             </Paper>

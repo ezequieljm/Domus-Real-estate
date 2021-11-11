@@ -7,21 +7,21 @@ import { ModalDelete } from "../ModalDelete";
 
 import { RowAccordion } from "./RowAccordion";
 import { EditedActivity } from "./EditedActivity";
-import { ComponentEditAppointment } from "./ComponentEditAppoinment";
+import { ComponentEditAppointment } from "./ComponentEditAppointment";
 import { useStyles } from "./styles.detailAccordion";
 
 /**
  * Main Component
  */
-const DetailedAccordion = ({ arrayAppoinment }) =>
+const DetailedAccordion = ({ arrayAppointment }) =>
 {
     const classes = useStyles();
 
     const [openEdit, setOpenEdit] = useState(0);
 
-    const [appoinmentEdited, setAppEd] = useState();
+    const [appointmentEdited, setAppEd] = useState();
 
-    const [dataArrayAppoinment, setArrayApp] = useState([]);
+    const [dataArrayAppointment, setArrayApp] = useState([]);
 
     const getTableRow = (str) => 
     {
@@ -39,49 +39,49 @@ const DetailedAccordion = ({ arrayAppoinment }) =>
         setArrayApp(arrayOfData);
     }
 
-    const requestPut = (id, arrayAppoinment) =>
+    const requestPut = (id, arrayAppointment) =>
     {
         if (openEdit === 2)
         {
             const getAppoinmentById = (arr, id) => arr.reduce((acc, curr) => (curr.id === id ? { ...curr } : acc), {});
-            const appoinment = getAppoinmentById(arrayAppoinment, id);
+            const appointment = getAppoinmentById(arrayAppointment, id);
 
-            appoinment.agent = appoinmentEdited.agent
-            appoinment.date = appoinmentEdited.date
-            appoinment.hour = appoinmentEdited.hour
-            appoinment.propertie = appoinmentEdited.propertie
+            appointment.agent = appointmentEdited.agent
+            appointment.date = appointmentEdited.date
+            appointment.hour = appointmentEdited.hour
+            appointment.propertie = appointmentEdited.propertie
 
-            fetch(`http://localhost:4000/appoinments/${appoinment.id}`, {
+            fetch(`http://localhost:4000/appoinments/${appointment.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(appoinment)
+                body: JSON.stringify(appointment)
             })
                 .catch(console.log)
         }
     }
 
-    useEffect(() => requestPut(Number(dataArrayAppoinment[6]), arrayAppoinment),
-        [openEdit, appoinmentEdited,]
+    useEffect(() => requestPut(Number(dataArrayAppointment[6]), arrayAppointment),
+        [openEdit, appointmentEdited,]
     );
 
     return (
         <>
-            {arrayAppoinment.map(appoinment => (
+            {arrayAppointment.map(appointment => (
                 <Accordion
-                    id={`${appoinment.id}`}
-                    key={appoinment.id}
+                    id={`${appointment.id}`}
+                    key={appointment.id}
                     className={classes.root}
                     onChange={e => setOpenEdit(0)}
                 >
                     <AccordionSummary expandIcon={<ExpandMoreIcon style={{ color: "grey" }} />}>
                         <div className={classes.column}>
-                            <Typography className={classes.heading}>{appoinment.title}</Typography>
+                            <Typography className={classes.heading}>{appointment.title}</Typography>
                         </div>
                         <div className={classes.column}>
                             <Typography className={classes.secondaryHeading}>
-                                {appoinment.shortDescription}
+                                {appointment.shortDescription}
                             </Typography>
                         </div>
                     </AccordionSummary>
@@ -101,9 +101,9 @@ const DetailedAccordion = ({ arrayAppoinment }) =>
                                     </TableHead>
                                     <TableBody>
                                         <RowAccordion
-                                            key={appoinment.title}
-                                            row={appoinment}
-                                            ident={`accordion-${appoinment.id}`}
+                                            key={appointment.title}
+                                            row={appointment}
+                                            ident={`accordion-${appointment.id}`}
                                         />
                                     </TableBody>
                                 </Table>
@@ -118,7 +118,7 @@ const DetailedAccordion = ({ arrayAppoinment }) =>
                         </div>
                     </AccordionDetails>
                     <AccordionActions style={{ background: "white" }}>
-                        {appoinment.state === "Cancelada" && (
+                        {appointment.state === "Cancelada" && (
                             <Button style={{ color: "green" }} size="small">
                                 Restablecer
                             </Button>
@@ -131,7 +131,7 @@ const DetailedAccordion = ({ arrayAppoinment }) =>
                                 setOpenEdit(1);
                                 getTableRow(e.currentTarget.className);
                             }}
-                            className={`accordion-${appoinment.id}`}
+                            className={`accordion-${appointment.id}`}
                         >
                             Editar
                         </Button>

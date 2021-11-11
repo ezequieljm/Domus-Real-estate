@@ -5,10 +5,10 @@ import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from "@material-ui/pi
 import esLocale from "date-fns/locale/es";
 import DateFnsUtils from "@date-io/date-fns";
 
-export const ComponentEditAppointment = ({ setOptionApp, setAppoinmentEdited }) =>
+export const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited }) =>
 {
-    const dataAppoinmentEdit = { date: "", hour: "", agent: "Ned Bigby", propertie: "6853" };
-    const [newData, setNewData] = useState(dataAppoinmentEdit);
+    const dataAppointmentEdit = { date: "", hour: "", agent: "Ned Bigby", propertie: "6853" };
+    const [newData, setNewData] = useState(dataAppointmentEdit);
     const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
 
     const handleSelectedDate = date =>
@@ -21,7 +21,7 @@ export const ComponentEditAppointment = ({ setOptionApp, setAppoinmentEdited }) 
     const handleButtonConfirm = () =>
     {
         setOptionApp(2);
-        setAppoinmentEdited(newData);
+        setAppointmentEdited(newData);
     };
 
     return (
