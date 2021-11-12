@@ -31,7 +31,7 @@ const DetailedAccordion = ({ arrayAppointment }) =>
     {
         if (openEdit === 2)
         {
-            fetch(`http://localhost:4000/appointments/${appointmentEdited.id}`, {
+            fetch(`http://localhost:8080/secretary/schedule/appointments/${appointmentEdited.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

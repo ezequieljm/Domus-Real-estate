@@ -60,12 +60,11 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
                     label="Agente"
                     SelectProps={{ native: true }}
                     helperText="Selecciona un agente inmobiliario"
-                    defaultValue={appointment.agent}
                     onChange={e =>
                         setNewAppointmentData({ ...newAppointmentData, agent: e.currentTarget.selectedOptions[0].innerHTML })
                     }
                 >
-                    {["Ned Bigby", "Gordon Freeman", "Feynman"].map(agent => (
+                    {["Ned Bigby", "Gordon Freeman", "Richard Feynman"].map(agent => (
                         <option key={agent} value={agent}>
                             {agent}
                         </option>
