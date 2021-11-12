@@ -20,7 +20,7 @@ const EditAnAppointment = () =>
 
     const processRequest = (appointments, date) =>
     {
-        const appointmentsByDate = appointments.filter(appointment => appointment.date === date);
+        const appointmentsByDate = appointments.filter(appointment => appointment.dateAppointment === date);
         setGetAppointments(0);
         setTimeout(() =>
         {
@@ -37,7 +37,7 @@ const EditAnAppointment = () =>
 
     useEffect(() =>
     {
-        fetch("http://localhost:4000/appointments", { method: "GET" })
+        fetch("http://localhost:8080/secretary/schedule/appointments", { method: "GET" })
             .then(data => data.json())
             .then(appointment => processRequest(appointment, dateSelect))
             .catch(error =>
