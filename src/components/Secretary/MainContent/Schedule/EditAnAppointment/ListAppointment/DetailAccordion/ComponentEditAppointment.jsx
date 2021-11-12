@@ -5,23 +5,35 @@ import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from "@material-ui/pi
 import esLocale from "date-fns/locale/es";
 import DateFnsUtils from "@date-io/date-fns";
 
-export const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited }) =>
+const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointment }) =>
 {
-    const dataAppointmentEdit = { date: "", hour: "", agent: "Ned Bigby", propertie: "6853" };
-    const [newData, setNewData] = useState(dataAppointmentEdit);
-    const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
+    const dataAppointmentEdit = {
+        date: appointment.dateAppointment,
+        hour: appointment.hour,
+        agent: appointment.agent,
+        propertie: appointment.propertie
+    };
+    const [newAppointmentData, setNewAppointmentData] = useState(dataAppointmentEdit);
+    const [currentDate, setCurrentDate] = useState(appointment.dateAppointment);
 
     const handleSelectedDate = date =>
     {
         const [dateOf, hourOf] = date.toLocaleString().split(",");
-        setNewData({ ...newData, date: dateOf, hour: hourOf });
+        setNewAppointmentData({ ...newAppointmentData, date: dateOf, hour: hourOf });
         setCurrentDate(date.toLocaleDateString());
     };
 
     const handleButtonConfirm = () =>
     {
         setOptionApp(2);
-        setAppointmentEdited(newData);
+        const appintmentEdited = {
+            ...appointment,
+            dateAppointment: newAppointmentData.date,
+            hour: newAppointmentData.hour,
+            propertie: newAppointmentData.propertie,
+            agent: newAppointmentData.agent
+        }
+        setAppointmentEdited(appintmentEdited);
     };
 
     return (
@@ -48,8 +60,9 @@ export const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited })
                     label="Agente"
                     SelectProps={{ native: true }}
                     helperText="Selecciona un agente inmobiliario"
+                    defaultValue={appointment.agent}
                     onChange={e =>
-                        setNewData({ ...newData, agent: e.currentTarget.selectedOptions[0].innerHTML })
+                        setNewAppointmentData({ ...newAppointmentData, agent: e.currentTarget.selectedOptions[0].innerHTML })
                     }
                 >
                     {["Ned Bigby", "Gordon Freeman", "Feynman"].map(agent => (
@@ -61,8 +74,8 @@ export const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited })
                 <TextField
                     label="Propiedad"
                     helperText="Ingrese el código de la propiedad"
-                    defaultValue="6853"
-                    onChange={e => setNewData({ ...newData, propertie: e.currentTarget.value })}
+                    defaultValue={appointment.propertie}
+                    onChange={e => setNewAppointmentData({ ...newAppointmentData, propertie: e.currentTarget.value })}
                 ></TextField>
                 <Button size="small" variant="contained" onClick={handleButtonConfirm}>
                     Confirmar
@@ -71,3 +84,5 @@ export const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited })
         </Grow>
     );
 };
+
+export default ComponentEditAppointment;

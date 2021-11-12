@@ -35,9 +35,12 @@ const EditAnAppointment = () =>
         }, 2000);
     };
 
+    /**
+     * GET Request
+     */
     useEffect(() =>
     {
-        fetch("http://localhost:8080/secretary/schedule/appointments", { method: "GET" })
+        fetch("http://localhost:4000/appointments", { method: "GET" })
             .then(data => data.json())
             .then(appointment => processRequest(appointment, dateSelect))
             .catch(error =>
@@ -74,29 +77,19 @@ const EditAnAppointment = () =>
                             </ThemeProvider>
                         </div>
                     </div>
-                    <div
-                        style={{
-                            overflow: "auto",
-                            padding: "1rem",
-                            width: "1250px",
-                        }}
-                    >
+                    <div style={{ overflow: "auto", padding: "1rem", width: "1250px" }} >
                         <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
                             Citas del dia
                             {` ${new Date(dateSelect).toLocaleDateString()}`}
                         </Typography>
-                        {
-                            getAppointments === 1 &&
+                        {getAppointments === 1 &&
                             <div>
                                 <DetailedAccordion arrayAppointment={arrayAppointment} />
-                            </div>
-                        }
-                        {
-                            getAppointments === 0 &&
+                            </div>}
+                        {getAppointments === 0 &&
                             <div style={{ textAlign: "center" }}>
                                 <CircularProgress size="5rem" />
-                            </div>
-                        }
+                            </div>}
                         {getAppointments === 2 && <NoAppointments />}
                     </div>
                 </div>

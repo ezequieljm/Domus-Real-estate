@@ -5,9 +5,8 @@ import { Table, TableContainer, TableHead, TableBody, TableCell, TableRow } from
 import { Typography, Button } from "@material-ui/core";
 import { ModalDelete } from "../ModalDelete";
 
-import { RowAccordion } from "./RowAccordion";
 import { EditedActivity } from "./EditedActivity";
-import { ComponentEditAppointment } from "./ComponentEditAppointment";
+import ComponentEditAppointment from "./ComponentEditAppointment";
 import { useStyles } from "./styles.detailAccordion";
 
 const DetailedAccordion = ({ arrayAppointment }) =>
@@ -16,52 +15,38 @@ const DetailedAccordion = ({ arrayAppointment }) =>
 
     const [openEdit, setOpenEdit] = useState(0);
 
-    const [appointmentEdited, setAppEd] = useState();
+    const [appointmentEdited, setAppointmentEdited] = useState({});
 
-    const [dataArrayAppointment, setArrayApp] = useState([]);
-
-    const getTableRow = (str) => 
+    const captureTableData = event =>
     {
-        const id = str.substr(49, 11);
-        const childNodes = document.getElementById(id).childNodes;
-
-        let arrayOfData = []
-
-        for (let children of childNodes)
-        {
-            arrayOfData.push(children.innerHTML);
-        }
-
-        arrayOfData.push(id.split('-')[1]);
-        setArrayApp(arrayOfData);
+        const id = Number(event.currentTarget.className.substr(49, 11).split('-')[1]);
+        const tableData = arrayAppointment.reduce((acc, curr) => curr.id === id ? curr : acc, {});
+        setAppointmentEdited(tableData);
     }
 
-    const requestPut = (id, arrayAppointment) =>
+    /**
+     * PUT Request
+     */
+    useEffect(() =>
     {
         if (openEdit === 2)
         {
-            const getAppointmentById = (arr, id) => arr.reduce((acc, curr) => (curr.id === id ? { ...curr } : acc), {});
-            const appointment = getAppointmentById(arrayAppointment, id);
-
-            appointment.agent = appointmentEdited.agent
-            appointment.date = appointmentEdited.date
-            appointment.hour = appointmentEdited.hour
-            appointment.propertie = appointmentEdited.propertie
-
-            fetch(`http://localhost:4000/appointments/${appointment.id}`, {
+            fetch(`http://localhost:4000/appointments/${appointmentEdited.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(appointment)
+                body: JSON.stringify(appointmentEdited)
             })
                 .catch(console.log)
         }
-    }
+    }, [openEdit, appointmentEdited])
 
-    useEffect(() => requestPut(Number(dataArrayAppointment[6]), arrayAppointment),
-        [openEdit, appointmentEdited,]
-    );
+    const handleEventEditButton = event =>
+    {
+        setOpenEdit(1);
+        captureTableData(event);
+    }
 
     return (
         <>
@@ -93,43 +78,54 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                                             <TableCell align="right">Hora</TableCell>
                                             <TableCell align="right">Agente</TableCell>
                                             <TableCell align="right">Propiedad</TableCell>
+                                            <TableCell align="right">Cliente</TableCell>
+                                            <TableCell align="right">Teléfono</TableCell>
+                                            <TableCell align="right">Email</TableCell>
                                             <TableCell align="right">Estado</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        <RowAccordion
-                                            key={appointment.title}
-                                            row={appointment}
-                                            ident={`accordion-${appointment.id}`}
-                                        />
+                                        <TableRow key={appointment.id} id={`accordion-${appointment.id}`}>
+                                            <TableCell />
+                                            <TableCell align="right">{appointment.dateAppointment}</TableCell>
+                                            <TableCell align="right">{appointment.hour}</TableCell>
+                                            <TableCell align="right">{appointment.agent}</TableCell>
+                                            <TableCell align="right">{appointment.propertie}</TableCell>
+                                            <TableCell align="right">{appointment.client}</TableCell>
+                                            <TableCell align="right">{appointment.cellphone}</TableCell>
+                                            <TableCell align="right">{appointment.email}</TableCell>
+                                            <TableCell
+                                                align="right"
+                                                style={{
+                                                    color: appointment.state === "En Proceso"
+                                                        ? "blue"
+                                                        : appointment.state === "Finalizada" ? "green" : "red",
+                                                }}
+                                            >
+                                                {appointment.state}
+                                            </TableCell>
+                                        </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            {openEdit === 1 && (
+                            {openEdit === 1 &&
                                 <ComponentEditAppointment
                                     setOptionApp={setOpenEdit}
-                                    setAppointmentEdited={setAppEd}
-                                />
-                            )}
-                            {openEdit === 2 && <EditedActivity />}
+                                    setAppointmentEdited={setAppointmentEdited}
+                                    appointment={appointment}
+                                />}
+                            {openEdit === 2 &&
+                                <EditedActivity />}
                         </div>
                     </AccordionDetails>
                     <AccordionActions style={{ background: "white" }}>
-                        {appointment.state === "Cancelada" && (
-                            <Button style={{ color: "green" }} size="small">
-                                Restablecer
-                            </Button>
-                        )}
+                        {appointment.state === "Cancelada" &&
+                            <Button style={{ color: "green" }} size="small"> Restablecer </Button>}
                         <Button
                             size="small"
                             color="primary"
-                            onClick={e =>
-                            {
-                                setOpenEdit(1);
-                                getTableRow(e.currentTarget.className);
-                            }}
                             className={`accordion-${appointment.id}`}
-                        >
+                            onClick={handleEventEditButton}>
                             Editar
                         </Button>
                         <ModalDelete />
