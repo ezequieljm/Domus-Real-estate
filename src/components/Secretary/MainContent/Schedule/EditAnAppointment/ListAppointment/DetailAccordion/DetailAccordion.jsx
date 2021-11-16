@@ -31,7 +31,7 @@ const DetailedAccordion = ({ arrayAppointment }) =>
     {
         if (openEdit === 2)
         {
-            fetch(`http://localhost:8080/secretary/schedule/appointments/${appointmentEdited.id}`, {
+            fetch(`http://localhost:8080/secretary/schedule/appointments/modify/${appointmentEdited.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,9 +91,9 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                                             <TableCell align="right">{appointment.hour}</TableCell>
                                             <TableCell align="right">{appointment.agent}</TableCell>
                                             <TableCell align="right">{appointment.propertie}</TableCell>
-                                            <TableCell align="right">{appointment.client}</TableCell>
-                                            <TableCell align="right">{appointment.cellphone}</TableCell>
-                                            <TableCell align="right">{appointment.email}</TableCell>
+                                            <TableCell align="right">{appointment.client.fullName}</TableCell>
+                                            <TableCell align="right">{appointment.client.cellphone}</TableCell>
+                                            <TableCell align="right">{appointment.client.email}</TableCell>
                                             <TableCell
                                                 align="right"
                                                 style={{

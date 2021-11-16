@@ -1,66 +1,36 @@
 {
   "appointments": [
     {
-      "id": 0,
-      "title": "Ir a la casa de Big Smoke",
-      "shortDescription": "Ir a la casa en Grove Street",
-      "dateAppointment": "11/9/2021",
-      "hour": " 11:20:00 PM",
-      "agent": "Gordon Freeman",
-      "propertie": "4354",
-      "state": "En Proceso"
-    },
-    {
       "id": 1,
-      "title": "Visita al laboratorio",
-      "shortDescription": "Llevar al cliente a conocer el laboratorio de Raccon City",
+      "title": "Visitar la casa de Gordon Freeman",
+      "shortDescription": "Ir a ciudad 17 a hacer un relevamiento de la casa de Gordon Freeman",
       "dateAppointment": "11/9/2021",
-      "hour": " 12:20:00 PM",
+      "hour": " 7:32:00 AM",
       "agent": "Ned Bigby",
-      "propertie": "345345",
-      "client": "Juan Espinoza",
-      "cellphone": 23423423,
-      "email": "juanespinoza@gmail.com",
-      "state": "Cancelada"
+      "propertie": "3455",
+      "stateAppointment": "En Proceso",
+      "client": {
+        "idClient": 1,
+        "cellphone": "8736284",
+        "email": "facundoInfled@gmail.com",
+        "fullName": "Facundo Infeld"
+      }
     },
     {
       "id": 2,
-      "title": "Cobrar Alquileres",
-      "shortDescription": "Controlar los alquileres de Silent Hill",
-      "dateAppointment": "11/9/2021",
-      "hour": " 4:15:00 PM",
-      "agent": "Gordon Freeman",
-      "propertie": "2344",
-      "client": "Juan Espinoza",
-      "cellphone": 23423423,
-      "email": "juanespinoza@gmail.com",
-      "state": "En Proceso"
-    },
-    {
-      "id": 3,
-      "title": "Visita a la casa de Gordon Freeman",
-      "shortDescription": "Visitar la casa Freeman en ciudad 17",
-      "dateAppointment": "11/9/2021",
-      "hour": " 9:00:00 PM",
-      "agent": "Gordon Freeman",
-      "propertie": "8976",
-      "client": "Juan Espinoza",
-      "cellphone": 23423423,
-      "email": "juanespinoza@gmail.com",
-      "state": "Cancelada"
-    },
-    {
-      "id": 4,
-      "title": "Reunion con Durotan",
-      "shortDescription": "Hablar con el nuevo cliente Durotan",
-      "dateAppointment": "11/9/2021",
-      "hour": " 7:00:00 PM",
-      "agent": "Gordon Freeman",
-      "propertie": "6700",
-      "client": "Juan Espinoza",
-      "cellphone": 23423423,
-      "email": "juanespinoza@gmail.com",
-      "state": "Finalizada"
+      "title": "Ir a la casa de Big Smoke",
+      "shortDescription": "Ir a la casa en Grove Street",
+      "dateAppointment": "11/19/2021",
+      "hour": " 3:25:00 PM",
+      "agent": "Richard Feynman",
+      "propertie": "8764",
+      "stateAppointment": "En Proceso",
+      "client": {
+        "idClient": 2,
+        "cellphone": 23423423,
+        "email": "juanespinoza@gmail.com",
+        "fullName": "Juan Espinoza"
+      }
     }
   ]
 }
