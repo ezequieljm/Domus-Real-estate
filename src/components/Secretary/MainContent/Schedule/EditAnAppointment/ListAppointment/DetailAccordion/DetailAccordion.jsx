@@ -97,12 +97,12 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                                             <TableCell
                                                 align="right"
                                                 style={{
-                                                    color: appointment.state === "En Proceso"
+                                                    color: appointment.stateAppointment === "En Proceso"
                                                         ? "blue"
-                                                        : appointment.state === "Finalizada" ? "green" : "red",
+                                                        : appointment.stateAppointment === "Finalizada" ? "green" : "red",
                                                 }}
                                             >
-                                                {appointment.state}
+                                                {appointment.stateAppointment}
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>

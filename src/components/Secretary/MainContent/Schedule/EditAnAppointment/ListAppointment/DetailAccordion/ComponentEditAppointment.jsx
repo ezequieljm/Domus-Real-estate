@@ -18,11 +18,13 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
         setCurrentDate(date.toLocaleDateString());
     };
 
-    const handleButtonConfirm = () =>
+    const handleConfirmButton = () =>
     {
         setOptionApp(2);
         setAppointmentEdited(newAppointmentData);
     };
+
+    const handleCancelButton = () => setOptionApp(0);
 
     return (
         <Grow in>
@@ -110,8 +112,11 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
                         defaultValue={appointment.propertie}
                         onChange={e => setNewAppointmentData({ ...newAppointmentData, propertie: e.currentTarget.value })}
                     ></TextField>
-                    <Button size="small" variant="contained" onClick={handleButtonConfirm}>
+                    <Button size="small" variant="contained" onClick={handleConfirmButton}>
                         Confirmar
+                    </Button>
+                    <Button size="small" variant="contained" onClick={handleCancelButton}>
+                        Cancelar
                     </Button>
                 </div>
             </div>

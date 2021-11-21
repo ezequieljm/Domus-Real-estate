@@ -16,6 +16,8 @@ const EditAnAppointment = () =>
 
     const [dateSelect, setDateSelect] = useState(new Date().toLocaleDateString());
 
+    const [arrayAppointmentByDate, setAppointmentByDate] = useState([]);
+
     const [arrayAppointment, setAppointment] = useState([]);
 
     const processRequest = (appointments, date) =>
@@ -29,7 +31,7 @@ const EditAnAppointment = () =>
                 setGetAppointments(2);
             } else
             {
-                setAppointment(appointmentsByDate);
+                setAppointmentByDate(appointmentsByDate);
                 setGetAppointments(1);
             }
         }, 2000);
@@ -42,7 +44,11 @@ const EditAnAppointment = () =>
     {
         fetch("http://localhost:8080/secretary/schedule/appointments", { method: "GET" })
             .then(data => data.json())
-            .then(appointment => processRequest(appointment, dateSelect))
+            .then(appointment => 
+            {
+                setAppointment(appointment);
+                processRequest(appointment, dateSelect)
+            })
             .catch(error =>
             {
                 setGetAppointments(0);
@@ -76,6 +82,21 @@ const EditAnAppointment = () =>
                                 </MuiPickersUtilsProvider>
                             </ThemeProvider>
                         </div>
+                        <div style={{height: "400px", overflow:'auto', marginTop:"2rem"}}>
+                            <Typography variant="h4" color="primary">Fechas de citas</Typography>
+                            <ul>
+                                {
+                                    arrayAppointment.map(
+                                        (app, index) => 
+                                            <li key={index}>
+                                                <Paper style={{padding:"1rem", marginTop:".5rem", background:"#3f51b5"}}>
+                                                    <Typography style={{color:"white"}} variant="h5">{app.dateAppointment}</Typography>
+                                                </Paper>
+                                            </li>
+                                    )
+                                }
+                            </ul>
+                        </div>
                     </div>
                     <div style={{ overflow: "auto", padding: "1rem", width: "1250px" }} >
                         <Typography variant="h4" color="primary" style={{ marginBottom: "1rem" }}>
@@ -84,7 +105,7 @@ const EditAnAppointment = () =>
                         </Typography>
                         {getAppointments === 1 &&
                             <div>
-                                <DetailedAccordion arrayAppointment={arrayAppointment} />
+                                <DetailedAccordion arrayAppointment={arrayAppointmentByDate} />
                             </div>}
                         {getAppointments === 0 &&
                             <div style={{ textAlign: "center" }}>
