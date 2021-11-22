@@ -10,6 +10,9 @@ import { ThemeProvider } from "@material-ui/styles";
 import DetailedAccordion from "./ListAppointment/DetailAccordion/DetailAccordion";
 import { NoAppointments } from "./ListAppointment/NoAppointment";
 
+import { AppointmentModel } from "./AppointmentModel"
+
+
 const EditAnAppointment = () =>
 {
     const [getAppointments, setGetAppointments] = useState(0);
@@ -31,7 +34,26 @@ const EditAnAppointment = () =>
                 setGetAppointments(2);
             } else
             {
-                setAppointmentByDate(appointmentsByDate);
+                let appointmentsByDateTwo = []
+                for (const app of appointmentsByDate) 
+                {
+                    let appModel = new AppointmentModel(
+                        app.id,
+                        app.title,
+                        app.shortDescription,
+                        app.dateAppointment,
+                        app.hour,
+                        app.agent,
+                        app.propertie,
+                        app.stateAppointment,
+                        app.cellphone,
+                        app.fullName,
+                        app.email,
+                    );
+
+                    appointmentsByDateTwo.push(appModel);
+                }
+                setAppointmentByDate(appointmentsByDateTwo);
                 setGetAppointments(1);
             }
         }, 2000);
@@ -82,15 +104,15 @@ const EditAnAppointment = () =>
                                 </MuiPickersUtilsProvider>
                             </ThemeProvider>
                         </div>
-                        <div style={{height: "400px", overflow:'auto', marginTop:"2rem"}}>
-                            <Typography variant="h4" color="primary">Fechas de citas</Typography>
+                        <Typography style={{ marginTop: "2rem" }} variant="h4" color="primary">Fechas de citas</Typography>
+                        <div style={{ height: "400px", overflow: 'auto', marginTop: "1rem" }}>
                             <ul>
                                 {
                                     arrayAppointment.map(
-                                        (app, index) => 
+                                        (app, index) =>
                                             <li key={index}>
-                                                <Paper style={{padding:"1rem", marginTop:".5rem", background:"#3f51b5"}}>
-                                                    <Typography style={{color:"white"}} variant="h5">{app.dateAppointment}</Typography>
+                                                <Paper style={{ padding: "1rem", marginTop: ".5rem", background: "#3f51b5" }}>
+                                                    <Typography style={{ color: "white" }} variant="h5">{app.dateAppointment}</Typography>
                                                 </Paper>
                                             </li>
                                     )

@@ -4,33 +4,27 @@
       "id": 1,
       "title": "Visitar la casa de Gordon Freeman",
       "shortDescription": "Ir a ciudad 17 a hacer un relevamiento de la casa de Gordon Freeman",
-      "dateAppointment": "11/9/2021",
-      "hour": " 7:32:00 AM",
-      "agent": "Ned Bigby",
-      "propertie": "3455",
+      "dateAppointment": "11/19/2021",
+      "hour": " 4:05:00 AM",
+      "agent": "Gordon Freeman",
+      "propertie": "34634",
       "stateAppointment": "En Proceso",
-      "client": {
-        "idClient": 1,
-        "cellphone": "8736284",
-        "email": "facundoInfled@gmail.com",
-        "fullName": "Facundo Infeld"
-      }
+      "cellphone": "8736284",
+      "email": "facundoInfled@gmail.com",
+      "fullName": "Facundo Infeld"
     },
     {
       "id": 2,
-      "title": "Ir a la casa de Big Smoke",
-      "shortDescription": "Ir a la casa en Grove Street",
+      "title": "oiuweruyw",
+      "shortDescription": "lkjsdhlfkj987",
       "dateAppointment": "11/19/2021",
-      "hour": " 3:25:00 PM",
-      "agent": "Richard Feynman",
-      "propertie": "8764",
+      "hour": " 2:08:00 AM",
+      "agent": "Gordon Freeman",
+      "propertie": "235",
       "stateAppointment": "En Proceso",
-      "client": {
-        "idClient": 2,
-        "cellphone": 23423423,
-        "email": "juanespinoza@gmail.com",
-        "fullName": "Juan Espinoza"
-      }
+      "cellphone": 23423423,
+      "email": "juanespinoza@gmail.com",
+      "fullName": "sadkjfhlsakdjfhls"
     }
   ]
 }

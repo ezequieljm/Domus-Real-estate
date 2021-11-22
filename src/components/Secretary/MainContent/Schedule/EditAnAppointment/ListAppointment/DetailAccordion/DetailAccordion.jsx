@@ -59,11 +59,11 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                 >
                     <AccordionSummary expandIcon={<ExpandMoreIcon style={{ color: "grey" }} />}>
                         <div className={classes.column}>
-                            <Typography className={classes.heading}>{appointment.title}</Typography>
+                            <Typography className={classes.heading}>{appointment.getTitle()}</Typography>
                         </div>
                         <div className={classes.column}>
                             <Typography className={classes.secondaryHeading}>
-                                {appointment.shortDescription}
+                                {appointment.getShortDescription()}
                             </Typography>
                         </div>
                     </AccordionSummary>
@@ -87,13 +87,13 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                                     <TableBody>
                                         <TableRow key={appointment.id} id={`accordion-${appointment.id}`}>
                                             <TableCell />
-                                            <TableCell align="right">{appointment.dateAppointment}</TableCell>
-                                            <TableCell align="right">{appointment.hour}</TableCell>
-                                            <TableCell align="right">{appointment.agent}</TableCell>
-                                            <TableCell align="right">{appointment.propertie}</TableCell>
-                                            <TableCell align="right">{appointment.client.fullName}</TableCell>
-                                            <TableCell align="right">{appointment.client.cellphone}</TableCell>
-                                            <TableCell align="right">{appointment.client.email}</TableCell>
+                                            <TableCell align="right">{appointment.getDateAppointment()}</TableCell>
+                                            <TableCell align="right">{appointment.getHour()}</TableCell>
+                                            <TableCell align="right">{appointment.getAgent()}</TableCell>
+                                            <TableCell align="right">{appointment.getPropertie()}</TableCell>
+                                            <TableCell align="right">{appointment.getFullname()}</TableCell>
+                                            <TableCell align="right">{appointment.getCellphone()}</TableCell>
+                                            <TableCell align="right">{appointment.getEmail()}</TableCell>
                                             <TableCell
                                                 align="right"
                                                 style={{
@@ -102,7 +102,7 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                                                         : appointment.stateAppointment === "Finalizada" ? "green" : "red",
                                                 }}
                                             >
-                                                {appointment.stateAppointment}
+                                                {appointment.getStateAppointment()}
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -119,12 +119,12 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                         </div>
                     </AccordionDetails>
                     <AccordionActions style={{ background: "white" }}>
-                        {appointment.state === "Cancelada" &&
+                        {appointment.getStateAppointment() === "Cancelada" &&
                             <Button style={{ color: "green" }} size="small"> Restablecer </Button>}
                         <Button
                             size="small"
                             color="primary"
-                            className={`accordion-${appointment.id}`}
+                            className={`accordion-${appointment.getId()}`}
                             onClick={handleEventEditButton}>
                             Editar
                         </Button>

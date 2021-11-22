@@ -9,7 +9,7 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
 {
     const dataAppointmentEdit = appointment;
     const [newAppointmentData, setNewAppointmentData] = useState(dataAppointmentEdit);
-    const [currentDate, setCurrentDate] = useState(appointment.dateAppointment);
+    const [currentDate, setCurrentDate] = useState(appointment.getDateAppointment());
 
     const handleSelectedDate = date =>
     {
@@ -32,7 +32,7 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
                 <div style={{ paddingLeft: "2.5rem", paddingRight: "2.5", paddingTop: "2.5rem" }}>
                     <TextField
                         helperText="Titulo"
-                        defaultValue={appointment.title}
+                        defaultValue={appointment.getTitle()}
                         fullWidth
                         required
                         inputMode="text"
@@ -42,7 +42,7 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
                     > </TextField>
                     <TextField
                         helperText="Descripción"
-                        defaultValue={appointment.shortDescription}
+                        defaultValue={appointment.getShortDescription()}
                         fullWidth
                         required
                         inputMode="text"
@@ -54,23 +54,23 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
                 <div style={{ padding: "2.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <TextField
                         helperText="Nombre completo"
-                        defaultValue={appointment.client.fullName}
+                        defaultValue={appointment.getFullname()}
                         onChange={e =>
-                            setNewAppointmentData({ ...newAppointmentData, client: { ...newAppointmentData.client, fullName: e.currentTarget.value } })
+                            setNewAppointmentData({ ...newAppointmentData, fullName: e.currentTarget.value })
                         }
                     > </TextField>
                     <TextField
                         helperText="Teléfono"
-                        defaultValue={appointment.client.cellphone}
+                        defaultValue={appointment.getCellphone()}
                         onChange={e =>
-                            setNewAppointmentData({ ...newAppointmentData, client: { ...newAppointmentData.client, cellphone: e.currentTarget.value } })
+                            setNewAppointmentData({ ...newAppointmentData, cellphone: e.currentTarget.value })
                         }
                     > </TextField>
                     <TextField
                         helperText="Email"
-                        defaultValue={appointment.client.email}
+                        defaultValue={appointment.getEmail()}
                         onChange={e =>
-                            setNewAppointmentData({ ...newAppointmentData, client: { ...newAppointmentData.client, email: e.currentTarget.value } })
+                            setNewAppointmentData({ ...newAppointmentData, email: e.currentTarget.value })
                         }
                     > </TextField>
                 </div>
@@ -109,7 +109,7 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
                     <TextField
                         label="Propiedad"
                         helperText="Ingrese el código de la propiedad"
-                        defaultValue={appointment.propertie}
+                        defaultValue={appointment.getPropertie()}
                         onChange={e => setNewAppointmentData({ ...newAppointmentData, propertie: e.currentTarget.value })}
                     ></TextField>
                     <Button size="small" variant="contained" onClick={handleConfirmButton}>
