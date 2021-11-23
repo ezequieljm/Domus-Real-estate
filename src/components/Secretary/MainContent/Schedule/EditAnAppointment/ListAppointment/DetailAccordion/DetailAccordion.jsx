@@ -21,7 +21,6 @@ const DetailedAccordion = ({ arrayAppointment }) =>
     {
         const id = Number(event.currentTarget.className.substr(49, 11).split('-')[1]);
         const tableData = arrayAppointment.reduce((acc, curr) => curr.id === id ? curr : acc, {});
-        console.log(tableData)
         setAppointmentEdited(tableData);
     }
 
@@ -32,6 +31,7 @@ const DetailedAccordion = ({ arrayAppointment }) =>
     {
         if (openEdit === 2)
         {
+            console.log("Appointment edited: ", appointmentEdited)
             fetch(`http://localhost:8080/secretary/schedule/appointments/modify/${appointmentEdited.id}`, {
                 method: 'PUT',
                 headers: {

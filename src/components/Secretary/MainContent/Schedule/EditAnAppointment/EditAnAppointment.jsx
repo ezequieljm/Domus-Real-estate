@@ -38,7 +38,7 @@ const EditAnAppointment = () =>
                 for (const app of appointmentsByDate) 
                 {
                     let clientApp = new ClientModel(
-                        app.client.id, 
+                        app.client.idClient, 
                         app.client.fullname, 
                         app.client.cellphone, 
                         app.client.email
@@ -71,7 +71,6 @@ const EditAnAppointment = () =>
             .then(data => data.json())
             .then(appointment => 
             {
-                console.log(appointment);
                 setAppointment(appointment);
                 processRequest(appointment, dateSelect)
             })

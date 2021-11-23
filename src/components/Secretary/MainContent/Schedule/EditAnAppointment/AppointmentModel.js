@@ -2,7 +2,7 @@ export class ClientModel
 {
     constructor(id,fullname, cellphone, email)
     {
-        this.id = id;
+        this.idClient = id;
         this.fullname = fullname;
         this.cellphone = cellphone;
         this.email = email;
