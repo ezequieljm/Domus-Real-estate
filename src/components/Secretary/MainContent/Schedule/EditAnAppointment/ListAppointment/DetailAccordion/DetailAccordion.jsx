@@ -21,6 +21,7 @@ const DetailedAccordion = ({ arrayAppointment }) =>
     {
         const id = Number(event.currentTarget.className.substr(49, 11).split('-')[1]);
         const tableData = arrayAppointment.reduce((acc, curr) => curr.id === id ? curr : acc, {});
+        console.log(tableData)
         setAppointmentEdited(tableData);
     }
 
@@ -52,8 +53,8 @@ const DetailedAccordion = ({ arrayAppointment }) =>
         <>
             {arrayAppointment.map(appointment => (
                 <Accordion
-                    id={`${appointment.id}`}
-                    key={appointment.id}
+                    id={`${appointment.getId()}`}
+                    key={appointment.getId()}
                     className={classes.root}
                     onChange={e => setOpenEdit(0)}
                 >
@@ -85,15 +86,15 @@ const DetailedAccordion = ({ arrayAppointment }) =>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        <TableRow key={appointment.id} id={`accordion-${appointment.id}`}>
+                                        <TableRow key={appointment.getId()} id={`accordion-${appointment.getId()}`}>
                                             <TableCell />
                                             <TableCell align="right">{appointment.getDateAppointment()}</TableCell>
                                             <TableCell align="right">{appointment.getHour()}</TableCell>
                                             <TableCell align="right">{appointment.getAgent()}</TableCell>
                                             <TableCell align="right">{appointment.getPropertie()}</TableCell>
-                                            <TableCell align="right">{appointment.getFullname()}</TableCell>
-                                            <TableCell align="right">{appointment.getCellphone()}</TableCell>
-                                            <TableCell align="right">{appointment.getEmail()}</TableCell>
+                                            <TableCell align="right">{appointment.getClient().getFullname()}</TableCell>
+                                            <TableCell align="right">{appointment.getClient().getCellphone()}</TableCell>
+                                            <TableCell align="right">{appointment.getClient().getEmail()}</TableCell>
                                             <TableCell
                                                 align="right"
                                                 style={{

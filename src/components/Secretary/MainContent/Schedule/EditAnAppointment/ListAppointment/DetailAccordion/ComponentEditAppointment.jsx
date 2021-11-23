@@ -54,23 +54,23 @@ const ComponentEditAppointment = ({ setOptionApp, setAppointmentEdited, appointm
                 <div style={{ padding: "2.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <TextField
                         helperText="Nombre completo"
-                        defaultValue={appointment.getFullname()}
+                        defaultValue={appointment.getClient().getFullname()}
                         onChange={e =>
-                            setNewAppointmentData({ ...newAppointmentData, fullName: e.currentTarget.value })
+                            setNewAppointmentData({ ...newAppointmentData, client: { ...newAppointmentData.client, fullname: e.currentTarget.value } })
                         }
                     > </TextField>
                     <TextField
                         helperText="Teléfono"
-                        defaultValue={appointment.getCellphone()}
+                        defaultValue={appointment.getClient().getCellphone()}
                         onChange={e =>
-                            setNewAppointmentData({ ...newAppointmentData, cellphone: e.currentTarget.value })
+                            setNewAppointmentData({ ...newAppointmentData, client: { ...newAppointmentData.client, cellphone: e.currentTarget.value } })
                         }
                     > </TextField>
                     <TextField
                         helperText="Email"
-                        defaultValue={appointment.getEmail()}
+                        defaultValue={appointment.getClient().getEmail()}
                         onChange={e =>
-                            setNewAppointmentData({ ...newAppointmentData, email: e.currentTarget.value })
+                            setNewAppointmentData({ ...newAppointmentData, client: { ...newAppointmentData.client, email: e.currentTarget.value } })
                         }
                     > </TextField>
                 </div>

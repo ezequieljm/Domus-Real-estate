@@ -1,6 +1,57 @@
+export class ClientModel
+{
+    constructor(id,fullname, cellphone, email)
+    {
+        this.id = id;
+        this.fullname = fullname;
+        this.cellphone = cellphone;
+        this.email = email;
+    }
+
+    getId()
+    {
+        return this.id;
+    }
+
+    getFullname() 
+    {
+        return this.fullname;
+    }
+
+    getCellphone()
+    {
+        return this.cellphone;
+    }
+
+    getEmail()
+    {
+        return this.email
+    }
+
+    setFullname(fullname)
+    {
+        this.fullname = fullname;
+    }
+
+    setCellphone(cellphone)
+    {
+        this.cellphone = cellphone;
+    }
+
+    setEmail(email)
+    {
+        this.email = email;
+    }
+
+    setId(id)
+    {
+        this.id = id;
+    }
+}
+
 export class AppointmentModel 
 {
-    constructor(id, title, shortDescription, dateAppointment, hour, agent, propertie, stateAppointment, cellphone, fullname, email) 
+    constructor(id, title, shortDescription, dateAppointment, hour, agent, propertie, stateAppointment, client) 
     {
         this.id = id;
         this.title = title;
@@ -10,9 +61,7 @@ export class AppointmentModel
         this.agent = agent;
         this.propertie = propertie;
         this.stateAppointment = stateAppointment;
-        this.cellphone = cellphone;
-        this.fullName = fullname;
-        this.email = email;
+        this.client = client;
     }
 
     getId()
@@ -55,19 +104,9 @@ export class AppointmentModel
         return this.stateAppointment;
     }
 
-    getCellphone()
+    getClient()
     {
-        return this.cellphone;
-    }
-
-    getFullname()
-    {
-        return this.fullName;
-    }
-
-    getEmail()
-    {
-        return this.email;
+        return this.client;
     }
 
     //setters
@@ -112,18 +151,8 @@ export class AppointmentModel
         this.stateAppointment = stateAppointment
     }
 
-    setCellphone(cellphone)
+    setCellphone(client)
     {
-        this.cellphone = cellphone
-    }
-
-    setFullname(fullname)
-    {
-        this.fullname = fullname
-    }
-
-    setEmail(email)
-    {
-        this.email = email
+        this.client = client;
     }
 }

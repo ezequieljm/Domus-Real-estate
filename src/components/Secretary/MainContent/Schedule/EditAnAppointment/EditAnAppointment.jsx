@@ -10,7 +10,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import DetailedAccordion from "./ListAppointment/DetailAccordion/DetailAccordion";
 import { NoAppointments } from "./ListAppointment/NoAppointment";
 
-import { AppointmentModel } from "./AppointmentModel"
+import { AppointmentModel, ClientModel } from "./AppointmentModel"
 
 
 const EditAnAppointment = () =>
@@ -37,6 +37,12 @@ const EditAnAppointment = () =>
                 let appointmentsByDateTwo = []
                 for (const app of appointmentsByDate) 
                 {
+                    let clientApp = new ClientModel(
+                        app.client.id, 
+                        app.client.fullname, 
+                        app.client.cellphone, 
+                        app.client.email
+                    );
                     let appModel = new AppointmentModel(
                         app.id,
                         app.title,
@@ -46,11 +52,8 @@ const EditAnAppointment = () =>
                         app.agent,
                         app.propertie,
                         app.stateAppointment,
-                        app.cellphone,
-                        app.fullName,
-                        app.email,
+                        clientApp
                     );
-
                     appointmentsByDateTwo.push(appModel);
                 }
                 setAppointmentByDate(appointmentsByDateTwo);
@@ -68,6 +71,7 @@ const EditAnAppointment = () =>
             .then(data => data.json())
             .then(appointment => 
             {
+                console.log(appointment);
                 setAppointment(appointment);
                 processRequest(appointment, dateSelect)
             })

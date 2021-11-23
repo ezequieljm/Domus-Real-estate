@@ -2,16 +2,19 @@
   "appointments": [
     {
       "id": 1,
-      "title": "Visitar la casa de Gordon Freeman",
-      "shortDescription": "Ir a ciudad 17 a hacer un relevamiento de la casa de Gordon Freeman",
-      "dateAppointment": "11/19/2021",
-      "hour": " 4:05:00 AM",
-      "agent": "Gordon Freeman",
-      "propertie": "34634",
+      "title": "Lo que se esto es una prueba",
+      "shortDescription": "esto es una prueba espectacular",
+      "dateAppointment": "11/9/2021",
+      "hour": " 12:15:00 AM",
+      "agent": "Ned Bigby",
+      "propertie": "2352345",
       "stateAppointment": "En Proceso",
-      "cellphone": "8736284",
-      "email": "facundoInfled@gmail.com",
-      "fullName": "Facundo Infeld"
+      "client": {
+        "id": 1,
+        "fullname": "Melody Banner",
+        "cellphone": "0987654321",
+        "email": "melodyBanner@gmail.com"
+      }
     },
     {
       "id": 2,
@@ -22,9 +25,12 @@
       "agent": "Gordon Freeman",
       "propertie": "235",
       "stateAppointment": "En Proceso",
-      "cellphone": 23423423,
-      "email": "juanespinoza@gmail.com",
-      "fullName": "sadkjfhlsakdjfhls"
+      "client": {
+        "id": 2,
+        "cellphone": 23423423,
+        "email": "juanespinoza@gmail.com",
+        "fullname": "sadkjfhlsakdjfhls"
+      }
     }
   ]
 }
