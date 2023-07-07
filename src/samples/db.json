@@ -2,43 +2,43 @@
   "usuarios": [
     {
       "id": "1",
-      "usuario": "felipeRuiz",
-      "pass": "gerente"
+      "usuario": "felipe",
+      "pass": "felipe"
     },
     {
       "id": "2",
       "usuario": "jennifer",
-      "pass": "secretaria"
+      "pass": "jennifer"
     },
     {
       "id": "3",
       "usuario": "micaela",
-      "pass": "jefaAdmin"
+      "pass": "micaela"
     },
     {
       "id": "4",
       "usuario": "liliana",
-      "pass": "cajera"
+      "pass": "liliana"
     },
     {
       "id": "5",
       "usuario": "nedBigby",
-      "pass": "agente"
+      "pass": "nedBigby"
     },
     {
       "id": "6",
       "usuario": "cookie",
-      "pass": "marketing"
+      "pass": "cookie"
     },
     {
       "id": "7",
-      "usuario": "foxMulder",
-      "pass": "sitioadmin"
+      "usuario": "mulder",
+      "pass": "mulder"
     },
     {
       "id": "8",
       "usuario": "jorgelina",
-      "pass": "comercio"
+      "pass": "jorgelina"
     }
   ]
 }
